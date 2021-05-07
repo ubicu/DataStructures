@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DataStructures.Core.Stack
+namespace DataStructures.Core
 {
     public class IntStack : IStack<int>, IEnumerable
     {
@@ -58,25 +58,37 @@ namespace DataStructures.Core.Stack
             int pos;
 
             // Constructor
+            public IntStackEnumerator(IntStack stack)
+            {
+                arr = stack.arr;
+                pos = stack.pos;
+            }
 
-
-            public object Current => throw new NotImplementedException();
+            public object Current
+            {
+                get
+                {
+                    if (position >= pos || position < 0) throw new InvalidOperationException("Index is out-of-range");
+                    return arr[position];
+                }
+            }
 
             public bool MoveNext()
             {
-                throw new NotImplementedException();
+                position++;
+                return position < pos;
             }
 
             public void Reset()
             {
-                throw new NotImplementedException();
+                position = -1;
             }
         }
         #endregion
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return new IntStackEnumerator(this);
         }
 
     }
