@@ -70,7 +70,7 @@ namespace DataStructures.Test.DynamicArray
         }
 
         [Fact]
-        public void TestIndexOutOfBounds_LargeArray_IndexIsLessThanZero()
+        public void TestIndexOutOfBounds_IndexIsLargeNegativeNumber()
         {
             var dynamicArray = new DynamicArray<int>();
 

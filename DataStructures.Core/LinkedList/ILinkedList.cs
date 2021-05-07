@@ -18,10 +18,10 @@ namespace DataStructures.Core
         T peekLast();
         T removeFirst();
         T removeLast();
-        bool remove(Object obj);
+        bool remove(T obj);
         T removeAt(int index);
-        int indexOf(Object obj);
-        bool contains(Object obj);
+        int indexOf(T obj);
+        bool contains(T obj);
 
     }
 }

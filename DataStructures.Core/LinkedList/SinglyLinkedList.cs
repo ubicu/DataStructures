@@ -257,7 +257,7 @@ namespace DataStructures.Core
         }
 
 
-        public bool remove(object obj)
+        public bool remove(T obj)
         {
             Node<T> rear = head;
             Node<T> front;
@@ -285,12 +285,12 @@ namespace DataStructures.Core
             return false;
         }
 
-        public bool contains(object obj)
+        public bool contains(T obj)
         {
             return (indexOf(obj) != -1);
         }
 
-        public int indexOf(object obj)
+        public int indexOf(T obj)
         {
             int index = 0;
             Node<T> trav = new Node<T>();

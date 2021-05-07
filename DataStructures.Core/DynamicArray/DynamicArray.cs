@@ -98,7 +98,7 @@ namespace DataStructures.Core
         }
 
         // O(n) - time, O(1) - space
-        public int indexOf(Object obj)
+        public int indexOf(T obj)
         {
             for (int i = 0; i < len; i++)
             {
@@ -115,7 +115,7 @@ namespace DataStructures.Core
         }
 
         // O(n) - time, O(n) - space
-        public bool remove(Object obj)
+        public bool remove(T obj)
         {
             int index = indexOf(obj);
             if (index == -1)
