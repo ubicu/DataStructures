@@ -93,7 +93,7 @@ namespace DataStructures.Core
             private T[] data;
             private int front, rear;
             private int _size;
-            private int position;
+            private int position = -1;
 
             // Constructor
             public ArrayQueueEnumerator(ArrayQueue<T> queue)
@@ -102,7 +102,6 @@ namespace DataStructures.Core
                 front = queue.front;
                 rear  = queue.rear;
                 _size = queue._size;
-                position = -1;
             }
 
             public T Current
