@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks.Dataflow;
 
@@ -52,8 +53,7 @@ namespace DataStructures.Core
             if (isEmpty())
                 throw new InvalidOperationException("Stack is empty");
 
-            int lastIndex = size() - 1;
-            return list[lastIndex];
+            return list.Last();
         }
         #endregion
 

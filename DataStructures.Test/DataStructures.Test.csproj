@@ -21,8 +21,4 @@
     <ProjectReference Include="..\DataStructures.Core\DataStructures.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Queue\" />
-  </ItemGroup>
-
 </Project>
