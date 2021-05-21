@@ -81,7 +81,51 @@ namespace DataStructures.Core
         #region Private methods
         private T removeAt(int index)
         {
+            if (isEmpty())
+                return default(T);
+
+            int indexOfLastElem = size() - 1;
+            T removed_data = heap[indexOfLastElem];
+            swap(index, indexOfLastElem);
+
+            // Obliterate the value
+            heap.RemoveAt(indexOfLastElem);
+
+            // Check if the last element was removed
+            if (index == indexOfLastElem) 
+                return removed_data;
+
+            T elem = heap[index];
+
+            // Try sinking element
+            sink(index);
+
+            // If sinking did not work try swimming
+            if (heap[index].Equals(elem)) 
+                swim(index);
+
+            return removed_data;
+        }
+
+        private void swim(int index)
+        {
             throw new NotImplementedException();
+        }
+
+        // Top down node sink, O(log(n))
+        private void sink(object i)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Swap two nodes. Assumes i & j are valid, O(1)
+        private void swap(int index_i, int index_j)
+        {
+            T elem_i = heap[index_i];
+            T elem_j = heap[index_j];
+
+            heap[index_i] = elem_j;
+            heap[index_j] = elem_i;
         }
         #endregion
 
