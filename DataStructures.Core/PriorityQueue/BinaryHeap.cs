@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DataStructures.Core
 {
-    public class BinaryHeap<T> : IComparable<T>
+    public class BinaryHeap<T> where T : IComparable<T>
     {
         // A dynamic list to track the elements inside the heap
         private List<T> heap = null;
@@ -26,7 +26,16 @@ namespace DataStructures.Core
         // http://www.cs.umd.edu/~meesh/351/mount/lectures/lect14-heapsort-analysis-part.pdf
         public BinaryHeap(T[] elems)
         {
-            throw new NotImplementedException();
+            int heapSize = elems.Length;
+            heap = new List<T>(heapSize);
+
+            // Place all element in heap
+            for (int i = 0; i < heapSize; i++) 
+                heap.Add(elems[i]);
+
+            // Heapify process, O(n)
+            for (int i = Math.Max(0, (heapSize / 2) - 1); i >= 0; i--) 
+                sink(i);
         }
 
         // Priority queue construction, O(n)
@@ -107,15 +116,57 @@ namespace DataStructures.Core
             return removed_data;
         }
 
-        private void swim(int index)
+        private void swim(int k)
         {
-            throw new NotImplementedException();
+            // Grab the index of the next parent node WRT to k
+            int parent = (k - 1) / 2;
+
+            // Keep swimming while we have not reached the
+            // root and while we're less than our parent.
+            while (k > 0 && less(k, parent))
+            {
+                // Exchange k with the parent
+                swap(parent, k);
+                k = parent;
+
+                // Grab the index of the next parent node WRT to k
+                parent = (k - 1) / 2;
+            }
         }
 
         // Top down node sink, O(log(n))
-        private void sink(object i)
+        private void sink(int k)
         {
-            throw new NotImplementedException();
+            int heapSize = size();
+            while (true)
+            {
+                int left = 2 * k + 1; // Left  node
+                int right = 2 * k + 2; // Right node
+                int smallest = left; // Assume left is the smallest node of the two children
+
+                // Find which is smaller left or right
+                // If right is smaller set smallest to be right
+                if (right < heapSize && less(right, left)) smallest = right;
+
+                // Stop if we're outside the bounds of the tree
+                // or stop early if we cannot sink k anymore
+                if (left >= heapSize || less(k, smallest)) 
+                    break;
+
+                // Move down the tree following the smallest node
+                swap(smallest, k);
+                k = smallest;
+            }
+        }
+
+        // Tests if the value of node i <= node j
+        // This method assumes i & j are valid indices, O(1)
+        private bool less(int i, int j)
+        {
+            T node1 = heap[i];
+            T node2 = heap[j];
+
+            return node1.CompareTo(node2) <= 0;
         }
 
         // Swap two nodes. Assumes i & j are valid, O(1)
@@ -129,9 +180,5 @@ namespace DataStructures.Core
         }
         #endregion
 
-        public int CompareTo([AllowNull] T other)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
