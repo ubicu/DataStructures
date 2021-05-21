@@ -9,8 +9,4 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="PriorityQueue\" />
-  </ItemGroup>
-
 </Project>
