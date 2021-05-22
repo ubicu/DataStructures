@@ -148,7 +148,7 @@ namespace DataStructures.Core
                 return default(T);
 
             int indexOfLastElem = size() - 1;
-            T removed_data = heap[indexOfLastElem];
+            T removed_data = heap[index];
             swap(index, indexOfLastElem);
 
             // Obliterate the value
