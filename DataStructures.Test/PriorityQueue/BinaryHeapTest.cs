@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Xunit;
 
 namespace DataStructures.Test
@@ -55,7 +54,26 @@ namespace DataStructures.Test
         [Fact]
         public void TestHeapifyOperation()
         {
+            for (int i = 1; i < LOOPS; i++)
+            {
+                var lst = GenRandArray(i);
+                var pq1 = new BinaryHeap<int>(lst);
 
+                // Note: .NET Core does not have a native implementation
+                // of Priority Queues. Code from a Visual Studio Magazine
+                // article is used instead.
+                var pq2 = new PriorityQueue<int>();
+                foreach(var elem in lst)
+                {
+                    pq2.Enqueue(elem);
+                }
+
+                Assert.True(pq1.isMinHeap(0));
+                while (!pq2.IsEmpty())
+                {
+                    Assert.Equal(pq1.poll(), pq2.Dequeue());
+                }
+            }
         }
 
         #region Private functions
