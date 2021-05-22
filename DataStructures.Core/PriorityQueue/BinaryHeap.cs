@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
-using System.Text;
 
 namespace DataStructures.Core
 {
@@ -41,7 +38,15 @@ namespace DataStructures.Core
         // Priority queue construction, O(n)
         public BinaryHeap(ICollection<T> elems)
         {
-            throw new NotImplementedException();
+            int heapSize = elems.Count;
+
+            // Add all elements of the given collection to the heap
+            heap = new List<T>(elems);
+
+            // Heapify process, O(n)
+            for (int i = Math.Max(0, (heapSize / 2) - 1); i >= 0; i--)
+                sink(i);
+
         }
         #endregion
 
@@ -83,6 +88,55 @@ namespace DataStructures.Core
                 return default(T);
 
             return removeAt(0);
+        }
+
+        public bool contains(T elem)
+        {
+            foreach(var element in heap)
+            {
+                if (element.Equals(elem))
+                    return true;
+            }
+
+            return false;
+        }
+
+        // Adds an element to the priority queue, the
+        // element must not be null, O(log(n))
+        public void add(T elem)
+        {
+            if (elem == null) 
+                throw new ArgumentNullException();
+
+            heap.Add(elem);
+
+            int indexOfLastElem = size() - 1;
+            swim(indexOfLastElem);
+
+        }
+
+        // Recursively checks if this heap is a min heap
+        // This method is just for testing purposes to make
+        // sure the heap invariant is still being maintained
+        // Called this method with k=0 to start at the root
+        public bool isMinHeap(int k)
+        {
+            // If we are outside the bounds of the heap return true
+            int heapSize = size();
+            if (k >= heapSize) 
+                return true;
+
+            int left  = 2 * k + 1;
+            int right = 2 * k + 2;
+
+            // Make sure that the current node k is less than
+            // both of its children left, and right if they exist
+            // return false otherwise to indicate an invalid heap
+            if (left < heapSize && !less(k, left)) return false;
+            if (right < heapSize && !less(k, right)) return false;
+
+            // Recurse on both children to make sure they're also valid heaps
+            return isMinHeap(left) && isMinHeap(right);
         }
 
         #endregion
@@ -179,6 +233,12 @@ namespace DataStructures.Core
             heap[index_j] = elem_i;
         }
         #endregion
+
+            
+        public override string ToString()
+        {
+            return heap.ToString();
+        }
 
     }
 }
