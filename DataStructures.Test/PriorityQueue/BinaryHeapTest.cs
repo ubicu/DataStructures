@@ -275,7 +275,38 @@ namespace DataStructures.Test.PriorityQueue
         [Fact]
         public void TestPriorityQueueReusability()
         {
+            var SZs = GenUniqueRandList(LOOPS);
+            var pq = new BinaryHeap<int>();
 
+            foreach (var sz in SZs)
+            {
+                pq.clear();
+
+                var nums = GenRandList(sz);
+                foreach (var num in nums)
+                {
+                    pq.add(num);
+                }
+
+                //Collections.shuffle(randNums);
+                nums = nums.OrderBy(l => _random.Next()).ToList();
+
+                for (int i = 0; i < sz / 2; i++)
+                {
+                    // Sometimes add a new number into the BinaryHeap
+                    if (0.25 < _random.NextDouble())
+                    {
+                        int randNum = (int)(_random.NextDouble() * 10000);
+                        pq.add(randNum);
+                    }
+
+                    int removeNum = nums[i];
+
+                    Assert.True(pq.isMinHeap(0));
+                    pq.remove(removeNum);
+                    Assert.True(pq.isMinHeap(0));
+                }
+            }
         }
 
         #region Private functions
