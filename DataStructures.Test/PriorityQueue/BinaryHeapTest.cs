@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace DataStructures.Test
+namespace DataStructures.Test.PriorityQueue
 {
     public class BinaryHeapTest
     {
@@ -76,7 +76,66 @@ namespace DataStructures.Test
             }
         }
 
+        [Fact]
+        public void TestClearOperation()
+        {
+            var strs = new string[] { "aa", "bb", "cc", "dd", "ee" };
+            var q = new BinaryHeap<string>(strs);
+
+            q.clear();
+
+            Assert.Equal(0, q.size());
+            Assert.True(q.isEmpty());
+        }
+
+        [Fact]
+        public void TestContainment()
+        {
+
+        }
+
+        [Fact]
+        public void TestContainmentRandomized()
+        {
+
+        }
+
+        [Fact]
+        public void TestRemovingOperation()
+        {
+
+        }
+
+        [Fact]
+        public void TestRemovingDuplicates()
+        {
+
+        }
+
+        [Fact]
+        public void TestRandomizedPolling()
+        {
+
+        }
+
+        [Fact]
+        public void TestRandomizedRemoving()
+        {
+
+        }
+
+        [Fact]
+        public void TestPriorityQueueReusability()
+        {
+
+        }
+
         #region Private functions
+
+        private void SequentialRemoving()
+        {
+
+        }
 
         // Generate an array of random numbers
         private int[] GenRandArray(int size)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DataStructures.Core
 {
-    public class BinaryHeap<T> where T : IComparable<T>
+    public class BinaryHeap<T> : IBinaryHeap<T> where T : IComparable<T>
     {
         // A dynamic list to track the elements inside the heap
         private List<T> heap = null;
@@ -27,11 +27,11 @@ namespace DataStructures.Core
             heap = new List<T>(heapSize);
 
             // Place all element in heap
-            for (int i = 0; i < heapSize; i++) 
+            for (int i = 0; i < heapSize; i++)
                 heap.Add(elems[i]);
 
             // Heapify process, O(n)
-            for (int i = Math.Max(0, (heapSize / 2) - 1); i >= 0; i--) 
+            for (int i = Math.Max(0, (heapSize / 2) - 1); i >= 0; i--)
                 sink(i);
         }
 
@@ -92,7 +92,7 @@ namespace DataStructures.Core
 
         public bool contains(T elem)
         {
-            foreach(var element in heap)
+            foreach (var element in heap)
             {
                 if (element.Equals(elem))
                     return true;
@@ -105,7 +105,7 @@ namespace DataStructures.Core
         // element must not be null, O(log(n))
         public void add(T elem)
         {
-            if (elem == null) 
+            if (elem == null)
                 throw new ArgumentNullException();
 
             heap.Add(elem);
@@ -123,10 +123,10 @@ namespace DataStructures.Core
         {
             // If we are outside the bounds of the heap return true
             int heapSize = size();
-            if (k >= heapSize) 
+            if (k >= heapSize)
                 return true;
 
-            int left  = 2 * k + 1;
+            int left = 2 * k + 1;
             int right = 2 * k + 2;
 
             // Make sure that the current node k is less than
@@ -137,6 +137,23 @@ namespace DataStructures.Core
 
             // Recurse on both children to make sure they're also valid heaps
             return isMinHeap(left) && isMinHeap(right);
+        }
+
+        public bool remove(T element)
+        {
+            if (element == null)
+                return false;
+
+            for (int i = 0; i < size(); i++)
+            {
+                if (element.Equals(heap[i]))
+                {
+                    removeAt(i);
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         #endregion
@@ -155,7 +172,7 @@ namespace DataStructures.Core
             heap.RemoveAt(indexOfLastElem);
 
             // Check if the last element was removed
-            if (index == indexOfLastElem) 
+            if (index == indexOfLastElem)
                 return removed_data;
 
             T elem = heap[index];
@@ -164,7 +181,7 @@ namespace DataStructures.Core
             sink(index);
 
             // If sinking did not work try swimming
-            if (heap[index].Equals(elem)) 
+            if (heap[index].Equals(elem))
                 swim(index);
 
             return removed_data;
@@ -204,7 +221,7 @@ namespace DataStructures.Core
 
                 // Stop if we're outside the bounds of the tree
                 // or stop early if we cannot sink k anymore
-                if (left >= heapSize || less(k, smallest)) 
+                if (left >= heapSize || less(k, smallest))
                     break;
 
                 // Move down the tree following the smallest node
@@ -234,7 +251,7 @@ namespace DataStructures.Core
         }
         #endregion
 
-            
+
         public override string ToString()
         {
             return heap.ToString();
