@@ -30,7 +30,9 @@ namespace DataStructures.Test
 
         public T Dequeue()
         {
-            // assumes pq is not empty; up to calling code
+            if (IsEmpty())
+                return default(T);
+
             int li = data.Count - 1; // last index (before removal)
             T frontItem = data[0];   // fetch the front
             data[0] = data[li];
@@ -54,6 +56,9 @@ namespace DataStructures.Test
 
         public T Peek()
         {
+            if (IsEmpty())
+                return default(T);
+
             T frontItem = data[0];
             return frontItem;
         }
@@ -92,5 +97,16 @@ namespace DataStructures.Test
         {
             return data.Count == 0;
         }
+
+        public bool contains(T elem)
+        {
+            return data.Contains(elem);
+        }
+
+        public int size()
+        {
+            return data.Count;
+        }
+
     } // PriorityQueue
 }
