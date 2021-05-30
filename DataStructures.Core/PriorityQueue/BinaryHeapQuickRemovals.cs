@@ -9,7 +9,22 @@ namespace DataStructures.Core.PriorityQueue
         // A dynamic list to track the elements inside the heap
         private List<T> heap = null;
 
+        // This map keeps track of the possible indices a particular
+        // node value is found in the heap. Having this mapping lets
+        // us have O(log(n)) removals and O(1) element containment check
+        // at the cost of some additional space and minor overhead
+        private Dictionary<T, HashSet<int>> map = new Dictionary<T, HashSet<int>>();
+
         #region Constructors
+
+        // Construct and initially empty priority queue
+        public BinaryHeapQuickRemovals() : this(1) { }
+
+        // Construct a priority queue with an initial capacity
+        public BinaryHeapQuickRemovals(int size)
+        {
+            heap = new List<T>(size);
+        }
 
         #endregion
 
@@ -22,7 +37,8 @@ namespace DataStructures.Core.PriorityQueue
 
         public void clear()
         {
-            throw new NotImplementedException();
+            heap.Clear();
+            map.Clear();
         }
 
         public bool contains(T elem)
@@ -32,7 +48,7 @@ namespace DataStructures.Core.PriorityQueue
 
         public bool isEmpty()
         {
-            throw new NotImplementedException();
+            return size() == 0;
         }
 
         public bool isMinHeap(int k)
@@ -42,7 +58,10 @@ namespace DataStructures.Core.PriorityQueue
 
         public T peek()
         {
-            throw new NotImplementedException();
+            if (isEmpty())
+                return default(T);
+
+            return heap[0];
         }
 
         public T poll()
@@ -57,7 +76,7 @@ namespace DataStructures.Core.PriorityQueue
 
         public int size()
         {
-            throw new NotImplementedException();
+            return heap.Count;
         }
 
         #endregion
